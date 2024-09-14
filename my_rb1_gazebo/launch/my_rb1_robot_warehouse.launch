@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<launch>
+
+	<!-- roslaunch arguments -->
+    <arg name="x_pos" default="-0.408967"/>
+    <arg name="y_pos" default="-1.331129"/>
+    <arg name="z_pos" default="0.0"/> 
+	<arg name="debug" default="false"/>
+	<arg name="world_name" default="$(find rb1_base_gazebo)/worlds/ros2_online_workshop.world"/>
+
+	<!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+	<include file="$(find gazebo_ros)/launch/empty_world.launch">
+		<arg name="world_name" value="$(arg world_name)"/>
+		<arg name="debug" value="$(arg debug)" />
+		<arg name="paused" value="false"/>
+		<arg name="use_sim_time" value="true"/>
+		<arg name="headless" value="false"/>
+		<arg name="verbose" value="true"/>
+	</include>
+
+    <!-- Add robot description URDF to parameter server -->
+    <param name="robot_description" command="cat '$(find my_rb1_description)/urdf/my_rb1_robot.urdf'" />
+
+    <!-- Launch ioint state publisher -->
+    <node name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" />
+
+    <!-- launch robot state publisher -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+    <!-- Spawn robot in gazebo -->
+    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model my_rb1_robot -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos)" />
+	
+</launch>

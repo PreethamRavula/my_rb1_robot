@@ -2,8 +2,43 @@
 
 <robot name="my_rb1_robot">
 
+    <gazebo reference="base_link">
+        <material>Gazebo/Black</material>
+    </gazebo>
+
+    <gazebo reference="right_wheel">
+        <material>Gazebo/Grey</material>
+    </gazebo>
+
+    <gazebo reference="left_wheel">
+        <material>Gazebo/Grey</material>
+    </gazebo>
+
+    <gazebo reference="front_caster">
+        <material>Gazebo/Grey</material>
+    </gazebo>
+
+    <gazebo reference="back_caster">
+        <material>Gazebo/Grey</material>
+    </gazebo>
+
+    <gazebo reference="front_laser">
+        <material>Gazebo/Black</material>
+    </gazebo>
+
     <!-- Link - base_footprint  -->
     <link name="base_footprint">
+        <inertial>
+            <mass value="0.0001"/>
+            <origin xyz="0 0 0"/>
+            <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+        </inertial>
+            <visual>
+                <origin rpy="0 0 0" xyz="0 0 0"/>
+                <geometry>
+                    <box size="0.001 0.001 0.001"/>
+                </geometry>
+            </visual>
     </link>
 
     <!-- Link - base_link -->
@@ -36,25 +71,25 @@
     <link name="right_wheel">
         <inertial>
             <mass value="0.5" />
-            <origin xyz="0 -0.025 0" rpy="0 0 0" />
+            <origin xyz="0 -0.0125 0" rpy="0 0 0" />
             <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0002" />
         </inertial>
 
         <collision>
             <geometry>
-                <cylinder radius="0.025" length="0.05" />
+                <cylinder radius="0.025" length="0.025" />
             </geometry>
-            <origin xyz="0 -0.025 0" rpy="1.5708 0 0" />
+            <origin xyz="0 -0.0125 0" rpy="1.5708 0 0" />
         </collision>
 
         <visual>
             <geometry>
-                <cylinder radius="0.025" length="0.05" />
+                <cylinder radius="0.025" length="0.025" />
             </geometry>
             <material name="Red">
                 <color rgba="0.7 0.1 0.1 1" />
             </material>
-            <origin xyz="0 -0.025 0" rpy="1.5708 0 0" />
+            <origin xyz="0 -0.0125 0" rpy="1.5708 0 0" />
         </visual>
     </link>
 
@@ -62,25 +97,25 @@
     <link name="left_wheel">
         <inertial>
             <mass value="0.5" />
-            <origin xyz="0 0.025 0" rpy="0 0 0" />
+            <origin xyz="0 0.0125 0" rpy="0 0 0" />
             <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0002" />
         </inertial>
 
         <collision>
             <geometry>
-                <cylinder radius="0.025" length="0.05" />
+                <cylinder radius="0.025" length="0.025" />
             </geometry>
-            <origin xyz="0 0.025 0" rpy="1.5708 0 0" />
+            <origin xyz="0 0.0125 0" rpy="1.5708 0 0" />
         </collision>
 
         <visual>
             <geometry>
-                <cylinder radius="0.025" length="0.05" />
+                <cylinder radius="0.025" length="0.025" />
             </geometry>
             <material name="Red">
                 <color rgba="0.7 0.1 0.1 1" />
             </material>
-            <origin xyz="0 0.025 0" rpy="1.5708 0 0" />
+            <origin xyz="0 0.0125 0" rpy="1.5708 0 0" />
         </visual>
     </link>
 
@@ -88,7 +123,7 @@
     <link name="front_caster">
         <inertial>
             <mass value="0.1" />
-            <origin xyz="0 0 0.0125" rpy="0 0 0" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
             <inertia ixx="0.000025" ixy="0.0" ixz="0.0" iyy="0.000025" iyz="0.0" izz="0.000025" />
         </inertial>
 
@@ -97,7 +132,7 @@
             <geometry>
                 <sphere radius="0.025" />
             </geometry>
-            <origin xyz="0 0 0.0125" rpy="0 0 0" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
         </collision>
 
         <visual>
@@ -107,7 +142,7 @@
             <material name="DarkBlue">
                 <color rgba="0.2 0.2 0.4 1" />
             </material>
-            <origin xyz="0 0 0.0125" rpy="0 0 0" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
         </visual>
     </link>
 
@@ -115,7 +150,7 @@
     <link name="back_caster">
         <inertial>
             <mass value="0.1" />
-            <origin xyz="0 0 0.0125" rpy="0 0 0" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
             <inertia ixx="0.000025" ixy="0.0" ixz="0.0" iyy="0.000025" iyz="0.0" izz="0.000025" />
         </inertial>
 
@@ -124,7 +159,7 @@
             <geometry>
                 <sphere radius="0.025" />
             </geometry>
-            <origin xyz="0 0 0.0125" rpy="0 0 0" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
         </collision>
 
         <visual>
@@ -134,7 +169,7 @@
             <material name="DarkBlue">
                 <color rgba="0.2 0.2 0.4 1" />
             </material>
-            <origin xyz="0 0 0.0125" rpy="0 0 0" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
         </visual>
     </link>
 
