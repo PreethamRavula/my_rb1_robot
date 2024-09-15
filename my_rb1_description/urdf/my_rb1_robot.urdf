@@ -26,6 +26,66 @@
         <material>Gazebo/Black</material>
     </gazebo>
 
+    <gazebo reference="joint_base_front_laser">
+        <preserveFixedJoint>true</preserveFixedJoint>
+    </gazebo>
+
+    <gazebo reference="joint_base_front_caster">
+        <preserveFixedJoint>true</preserveFixedJoint>
+    </gazebo>
+
+    <gazebo reference="joint_base_back_caster">
+        <preserveFixedJoint>true</preserveFixedJoint>
+    </gazebo>
+
+    <gazebo>
+        <plugin filename="libgazebo_ros_diff_drive.so" name="differential_drive_controller">
+            <alwaysOn>true</alwaysOn>
+            <UpdateRate>20</UpdateRate>
+            <leftJoint>joint_base_left_wheel</leftJoint>
+            <rightJoint>joint_base_right_wheel</rightJoint>
+            <wheelSeperation>0.4</wheelSeperation>
+            <wheelDiameter>0.5</wheelDiameter>
+            <torque>10</torque>
+            <commandTopic>cmd_vel</commandTopic>
+            <odometryTopic>odom</odometryTopic>
+            <odometryFrame>odom</odometryFrame>
+            <robotBaseFrame>base_link</robotBaseFrame>
+        </plugin>
+    </gazebo>
+
+    <gazebo reference="front_laser">
+        <sensor type="ray" name="head_hokuyo_sensor">
+            <pose>0 0 0 0 0 0</pose>
+            <visualize>false</visualize>
+            <update_rate>20</update_rate>
+            <ray>
+                <scan>
+                    <horizontal>
+                        <samples>720</samples>
+                        <resolution>1</resolution>
+                        <min_angle>-1.570796</min_angle>
+                        <max_angle>1.570796</max_angle>
+                    </horizontal>
+                </scan>
+                <range>
+                    <min>0.20</min>
+                    <max>10.0</max>
+                    <resolution>0.01</resolution>
+                </range>
+                <noise>
+                    <type>gaussian</type>
+                    <mean>0.0</mean>
+                    <stddev>0.01</stddev>
+                </noise>
+            </ray>
+            <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so" >
+                <topicName>/scan</topicName>
+                <frameName>sensor_laser</frameName>
+            </plugin>
+        </sensor>
+    </gazebo>
+
     <!-- Link - base_footprint  -->
     <link name="base_footprint">
         <inertial>
@@ -71,25 +131,25 @@
     <link name="right_wheel">
         <inertial>
             <mass value="0.5" />
-            <origin xyz="0 -0.0125 0" rpy="0 0 0" />
+            <origin xyz="0 -0.025 0" rpy="1.5708 0 0" />
             <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0002" />
         </inertial>
 
         <collision>
             <geometry>
-                <cylinder radius="0.025" length="0.025" />
+                <cylinder radius="0.025" length="0.05" />
             </geometry>
-            <origin xyz="0 -0.0125 0" rpy="1.5708 0 0" />
+            <origin xyz="0 -0.025 0" rpy="1.5708 0 0" />
         </collision>
 
         <visual>
             <geometry>
-                <cylinder radius="0.025" length="0.025" />
+                <cylinder radius="0.025" length="0.05" />
             </geometry>
             <material name="Red">
                 <color rgba="0.7 0.1 0.1 1" />
             </material>
-            <origin xyz="0 -0.0125 0" rpy="1.5708 0 0" />
+            <origin xyz="0 -0.025 0" rpy="1.5708 0 0" />
         </visual>
     </link>
 
@@ -97,25 +157,25 @@
     <link name="left_wheel">
         <inertial>
             <mass value="0.5" />
-            <origin xyz="0 0.0125 0" rpy="0 0 0" />
+            <origin xyz="0 0.025 0" rpy="1.5708 0 0" />
             <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0002" />
         </inertial>
 
         <collision>
             <geometry>
-                <cylinder radius="0.025" length="0.025" />
+                <cylinder radius="0.025" length="0.05" />
             </geometry>
-            <origin xyz="0 0.0125 0" rpy="1.5708 0 0" />
+            <origin xyz="0 0.025 0" rpy="1.5708 0 0" />
         </collision>
 
         <visual>
             <geometry>
-                <cylinder radius="0.025" length="0.025" />
+                <cylinder radius="0.025" length="0.05" />
             </geometry>
             <material name="Red">
                 <color rgba="0.7 0.1 0.1 1" />
             </material>
-            <origin xyz="0 0.0125 0" rpy="1.5708 0 0" />
+            <origin xyz="0 0.025 0" rpy="1.5708 0 0" />
         </visual>
     </link>
 
@@ -175,6 +235,11 @@
 
     <!-- Link - front_laser -->
     <link name="front_laser">
+        <inertial>
+            <mass value="0.1" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <inertia ixx="1.75e-5" ixy="0.0" ixz="0.0" iyy="1.75e-5" iyz="0.0" izz="5e-6" />
+        </inertial>
         <visual>
             <geometry>
                 <cylinder radius="0.01" length="0.02" />
